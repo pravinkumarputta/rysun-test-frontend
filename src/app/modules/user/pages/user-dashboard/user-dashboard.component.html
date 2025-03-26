@@ -1,0 +1,138 @@
+<!-- Filters -->
+<div class="p-4 bg-white rounded-lg shadow mb-4">
+  <div class="flex flex-wrap gap-4 items-end">
+    <div class="filters-container">
+      <!-- Search Input -->
+      <div class="flex-1 min-w-[200px]">
+        <mat-form-field class="w-full">
+          <mat-label>Search</mat-label>
+          <input
+            matInput
+            [(ngModel)]="searchQuery"
+            (keyup.enter)="applyFilters()"
+            placeholder="Search by name or email"
+          />
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <!-- Date Range -->
+      <mat-form-field>
+        <mat-label>Date Range</mat-label>
+        <mat-date-range-input [formGroup]="dateRangeForm" [rangePicker]="picker">
+          <input matStartDate formControlName="start" placeholder="Start date">
+          <input matEndDate formControlName="end" placeholder="End date">
+        </mat-date-range-input>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-date-range-picker #picker (closed)="applyFilters()"></mat-date-range-picker>
+      </mat-form-field>
+    </div>
+
+    <!-- Apply Filters Button -->
+    <button mat-raised-button color="primary" (click)="applyFilters()">
+      Apply Filters
+    </button>
+
+    <!-- Clear Filters Button -->
+    <button mat-button (click)="clearFilters()">Clear Filters</button>
+  </div>
+</div>
+
+<!-- Table Container -->
+<div class="p-4 bg-white rounded-lg shadow">
+  <!-- Table -->
+  <table mat-table [dataSource]="users" class="w-full">
+    <!-- Full Name Column -->
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef>Full Name</th>
+      <td mat-cell *matCellDef="let user">{{ user.fullName }}</td>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="emailId">
+      <th mat-header-cell *matHeaderCellDef>Email</th>
+      <td mat-cell *matCellDef="let user">{{ user.emailId }}</td>
+    </ng-container>
+
+    <!-- Phone Number Column -->
+    <ng-container matColumnDef="phoneNumber">
+      <th mat-header-cell *matHeaderCellDef>Phone Number</th>
+      <td mat-cell *matCellDef="let user">{{ user.phoneNumber }}</td>
+    </ng-container>
+
+    <!-- Role Column -->
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef>Role</th>
+      <td mat-cell *matCellDef="let user">
+        <span
+          class="px-2 py-1 rounded-full text-sm capitalize"
+          [ngClass]="
+            user.role === 'admin'
+              ? 'bg-blue-100 text-blue-800'
+              : 'bg-gray-100 text-gray-800'
+          "
+        >
+          {{ user.role }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Admin Actions Column -->
+    <ng-container matColumnDef="adminActions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let user">
+        <div class="flex gap-2" *ngIf="user.id !== userProfile?.id">
+          <button
+            *ngIf="user.role === 'user'"
+            mat-raised-button
+            color="primary"
+            class="mark-admin-btn"
+            (click)="onRoleChange(user, true)"
+          >
+            <mat-icon class="text-sm">admin_panel_settings</mat-icon>
+            <span class="flex items-center gap-1"> Mark Admin </span>
+          </button>
+          <button
+            mat-raised-button
+            *ngIf="user.role === 'admin'"
+            color="warn"
+            class="unmark-admin-btn"
+            (click)="onRoleChange(user, false)"
+          >
+            <mat-icon class="text-sm">person_remove</mat-icon>
+            <span class="flex items-center gap-1"> Unmark Admin </span>
+          </button>
+        </div>
+      </td>
+    </ng-container>
+
+    <!-- Created At Column -->
+    <ng-container matColumnDef="createdAt">
+      <th mat-header-cell *matHeaderCellDef>Created At</th>
+      <td mat-cell *matCellDef="let user">
+        {{ user.createdAt | date : "medium" }}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <!-- Pagination -->
+  <div class="flex items-center justify-between mt-4">
+    <div class="text-sm text-gray-600">
+      Showing {{ (currentPage - 1) * pageSize + 1 }} to
+      {{ Math.min(currentPage * pageSize, totalUsers) }} of
+      {{ totalUsers }} entries
+    </div>
+    <mat-paginator
+      [length]="totalUsers"
+      [pageSize]="pageSize"
+      [pageIndex]="currentPage - 1"
+      [pageSizeOptions]="[5, 10, 25, 100]"
+      (page)="onPageChange($event)"
+      aria-label="Select page"
+    >
+    </mat-paginator>
+  </div>
+</div>

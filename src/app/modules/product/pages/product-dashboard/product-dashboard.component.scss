@@ -1,0 +1,84 @@
+.product-dashboard {
+  padding: 24px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+
+    h1 {
+      margin: 0;
+      color: #333;
+      font-size: 24px;
+      font-weight: 500;
+    }
+
+    button {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  }
+
+  .filters {
+    margin-bottom: 24px;
+
+    .filter-form {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+
+      .search-field {
+        flex: 1;
+        min-width: 300px;
+      }
+
+      .date-field {
+        min-width: 300px;
+      }
+    }
+  }
+
+  .table-container {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+
+    table {
+      width: 100%;
+
+      .mat-mdc-header-cell {
+        background-color: #f5f5f5;
+        font-weight: 500;
+        color: #333;
+      }
+
+      .mat-mdc-row {
+        &:hover {
+          background-color: #f8f8f8;
+        }
+      }
+
+      .mat-mdc-cell {
+        padding: 16px;
+      }
+
+      .actions-cell {
+        width: 80px;
+        text-align: center;
+      }
+    }
+
+    .mat-mdc-paginator {
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .product-image {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+  }
+}

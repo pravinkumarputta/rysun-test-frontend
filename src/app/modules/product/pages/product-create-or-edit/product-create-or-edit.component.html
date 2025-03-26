@@ -1,0 +1,66 @@
+<div class="product-form-container">
+  <h2>{{ isEditMode ? 'Edit Product' : 'Add New Product' }}</h2>
+  
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+    <!-- Image Upload Section -->
+    <div class="image-upload-section">
+      <div class="image-preview" *ngIf="imagePreview">
+        <img [src]="imagePreview" alt="Product preview">
+      </div>
+      <div class="upload-area" [class.has-image]="imagePreview">
+        <input
+          type="file"
+          accept="image/*"
+          (change)="onImageSelected($event)"
+          id="imageInput"
+          class="file-input"
+          #fileInput
+        >
+        <label for="imageInput" class="upload-label">
+          <mat-icon>add_a_photo</mat-icon>
+          <span>{{ imagePreview ? 'Change Image' : 'Upload Product Image' }}</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Product Details Section -->
+    <div class="form-fields">
+      <mat-form-field appearance="outline">
+        <mat-label>Product Name</mat-label>
+        <input matInput formControlName="name" placeholder="Enter product name">
+        <mat-error *ngIf="productForm.get('name')?.hasError('required')">
+          Name is required
+        </mat-error>
+        <mat-error *ngIf="productForm.get('name')?.hasError('minlength')">
+          Name must be at least 3 characters
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
+          formControlName="description"
+          rows="4"
+          placeholder="Enter product description"
+        ></textarea>
+        <mat-error *ngIf="productForm.get('description')?.hasError('required')">
+          Description is required
+        </mat-error>
+        <mat-error *ngIf="productForm.get('description')?.hasError('minlength')">
+          Description must be at least 10 characters
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!productForm.valid || (!selectedImage && !isEditMode) || isLoading"
+      >
+        <mat-spinner diameter="20" *ngIf="isLoading" class="button-spinner"></mat-spinner>
+        <span *ngIf="!isLoading">{{ isEditMode ? 'Update Product' : 'Create Product' }}</span>
+      </button>
+    </div>
+  </form>
+</div>

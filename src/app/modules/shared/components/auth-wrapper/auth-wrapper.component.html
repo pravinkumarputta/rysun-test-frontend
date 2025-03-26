@@ -1,0 +1,28 @@
+<div class="auth-wrapper">
+  <div class="header">
+    <div class="logo">
+      <h2>Rysun Test</h2>
+    </div>
+    <div class="user-actions">
+      <span>{{ userProfile?.fullName }}</span>
+      <button class="logout-btn" (click)="logout()">
+        <span>Logout</span>
+      </button>
+    </div>
+  </div>
+  <div class="main-content">
+    <div class="sidebar">
+      <nav>
+        <ul>
+          <li *ngFor="let item of getFilteredNavItems()" (click)="navigateTo(item.route)" [class.active]="item.isActive()">
+            <span class="icon">{{ item.icon }}</span>
+            <span class="label">{{ item.label }}</span>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
