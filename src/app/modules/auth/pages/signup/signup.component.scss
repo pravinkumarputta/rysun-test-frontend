@@ -7,117 +7,86 @@
   padding: 20px;
 }
 
-.signup-form-wrapper {
+.signup-card {
   background: white;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 400px;
 }
 
-h2 {
-  text-align: center;
+h1 {
+  margin: 0;
   color: #333;
-  margin-bottom: 2rem;
-  font-size: 1.8rem;
+  font-size: 24px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.subtitle {
+  color: #666;
+  text-align: center;
+  margin: 8px 0 24px;
 }
 
 .signup-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 16px;
 }
 
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
+.form-field {
+  width: 100%;
 }
 
-label {
-  font-weight: 500;
-  color: #555;
-  font-size: 0.9rem;
+.submit-button {
+  margin-top: 8px;
+  height: 48px;
+  font-size: 16px;
 }
 
-input {
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-
-  &:focus {
-    outline: none;
-    border-color: #4a90e2;
-  }
-
-  &.error {
-    border-color: #dc3545;
-  }
-}
-
-.error-message {
-  color: #dc3545;
-  font-size: 0.8rem;
-  margin-top: 0.2rem;
-}
-
-.submit-btn {
-  background-color: #4a90e2;
-  color: white;
-  padding: 1rem;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #357abd;
-  }
-
-  &:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
+.form-footer {
+  text-align: center;
+  margin-top: 16px;
+  
+  a {
+    color: #1976d2;
+    text-decoration: none;
+    cursor: pointer;
+    
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
 .message-container {
-  margin-top: 1rem;
+  margin-top: 16px;
   text-align: center;
 }
 
 .success-message {
-  color: #28a745;
-  font-size: 0.9rem;
-  padding: 0.5rem;
-  background-color: #d4edda;
-  border-radius: 5px;
+  color: #4caf50;
+  margin-bottom: 8px;
 }
 
 .error-message {
-  color: #dc3545;
-  font-size: 0.9rem;
-  padding: 0.5rem;
-  background-color: #f8d7da;
-  border-radius: 5px;
+  color: #f44336;
+  margin-bottom: 8px;
 }
 
 .loading-spinner {
-  display: inline-block;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #ffffff;
-  border-radius: 50%;
-  border-top-color: transparent;
-  animation: spin 1s linear infinite;
+  margin-left: 8px;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+// Responsive adjustments
+@media (max-width: 480px) {
+  .signup-card {
+    padding: 24px;
+  }
+  
+  h1 {
+    font-size: 20px;
   }
 }

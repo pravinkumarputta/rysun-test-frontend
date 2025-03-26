@@ -1,94 +1,64 @@
 <div class="signup-container">
-  <div class="signup-form-wrapper">
-    <h2>Create Account</h2>
-    
+  <div class="signup-card">
+    <h1>Create Account</h1>
+    <p class="subtitle">Please fill in your details to sign up</p>
+
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" class="signup-form">
-      <!-- Full Name -->
-      <div class="form-group">
-        <label for="fullName">Full Name</label>
-        <input
-          type="text"
-          id="fullName"
-          formControlName="fullName"
-          placeholder="Enter your full name"
-          [class.error]="signupForm.get('fullName')?.invalid && signupForm.get('fullName')?.touched"
-        >
-        <div class="error-message" *ngIf="signupForm.get('fullName')?.invalid && signupForm.get('fullName')?.touched">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Full Name</mat-label>
+        <input matInput formControlName="fullName" placeholder="Enter your full name">
+        <mat-error *ngIf="signupForm.get('fullName')?.invalid && signupForm.get('fullName')?.touched">
           {{ getErrorMessage('fullName') }}
-        </div>
-      </div>
+        </mat-error>
+      </mat-form-field>
 
-      <!-- Email -->
-      <div class="form-group">
-        <label for="emailId">Email ID</label>
-        <input
-          type="email"
-          id="emailId"
-          formControlName="emailId"
-          placeholder="Enter your email"
-          [class.error]="signupForm.get('emailId')?.invalid && signupForm.get('emailId')?.touched"
-        >
-        <div class="error-message" *ngIf="signupForm.get('emailId')?.invalid && signupForm.get('emailId')?.touched">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="emailId" type="email" placeholder="Enter your email">
+        <mat-error *ngIf="signupForm.get('emailId')?.invalid && signupForm.get('emailId')?.touched">
           {{ getErrorMessage('emailId') }}
-        </div>
-      </div>
+        </mat-error>
+      </mat-form-field>
 
-      <!-- Phone -->
-      <div class="form-group">
-        <label for="phoneNumber">Phone Number</label>
-        <input
-          type="tel"
-          id="phoneNumber"
-          formControlName="phoneNumber"
-          placeholder="Enter your phone number"
-          [class.error]="signupForm.get('phoneNumber')?.invalid && signupForm.get('phoneNumber')?.touched"
-        >
-        <div class="error-message" *ngIf="signupForm.get('phoneNumber')?.invalid && signupForm.get('phoneNumber')?.touched">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Phone Number</mat-label>
+        <input matInput formControlName="phoneNumber" type="tel" placeholder="Enter your phone number">
+        <mat-error *ngIf="signupForm.get('phoneNumber')?.invalid && signupForm.get('phoneNumber')?.touched">
           {{ getErrorMessage('phoneNumber') }}
-        </div>
-      </div>
+        </mat-error>
+      </mat-form-field>
 
-      <!-- Password -->
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          formControlName="password"
-          placeholder="Enter your password"
-          [class.error]="signupForm.get('password')?.invalid && signupForm.get('password')?.touched"
-        >
-        <div class="error-message" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password">
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" type="button">
+          <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
           {{ getErrorMessage('password') }}
-        </div>
-      </div>
+        </mat-error>
+      </mat-form-field>
 
-      <!-- Confirm Password -->
-      <div class="form-group">
-        <label for="confirmPassword">Confirm Password</label>
-        <input
-          type="password"
-          id="confirmPassword"
-          formControlName="confirmPassword"
-          placeholder="Confirm your password"
-          [class.error]="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched"
-        >
-        <div class="error-message" *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched">
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Confirm Password</mat-label>
+        <input matInput [type]="hideConfirmPassword ? 'password' : 'text'" formControlName="confirmPassword">
+        <button mat-icon-button matSuffix (click)="hideConfirmPassword = !hideConfirmPassword" type="button">
+          <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="signupForm.get('confirmPassword')?.invalid && signupForm.get('confirmPassword')?.touched">
           {{ getErrorMessage('confirmPassword') }}
-        </div>
-      </div>
+        </mat-error>
+      </mat-form-field>
 
-      <!-- Submit Button -->
-      <button 
-        type="submit" 
-        [disabled]="signupForm.invalid || isLoading" 
-        class="submit-btn"
-      >
+      <button mat-raised-button color="primary" type="submit" [disabled]="signupForm.invalid || isLoading" class="submit-button">
         <span *ngIf="!isLoading">Sign Up</span>
-        <span *ngIf="isLoading" class="loading-spinner"></span>
+        <mat-spinner diameter="20" *ngIf="isLoading" class="loading-spinner"></mat-spinner>
       </button>
 
-      <!-- Messages -->
+      <div class="form-footer">
+        <a (click)="navigateToLogin()">Already have an account? Sign in</a>
+      </div>
+
       <div class="message-container">
         <div class="success-message" *ngIf="successMessage">
           {{ successMessage }}

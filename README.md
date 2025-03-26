@@ -1,6 +1,36 @@
 # RysunTestFrontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.5.
+A modern Angular-based frontend application for user authentication and product management. This application features a clean, responsive design with Material UI components and follows Angular best practices.
+
+## Features
+
+- User Authentication (Login/Signup)
+- Role-based Access Control
+- Product Management
+- Responsive Design
+- Form Validation
+- Toast Notifications
+- Caching System
+
+## Screenshots
+
+### Login Page
+![Login Page](screenshots/1.png)
+
+### Signup Page
+![Signup Page](screenshots/2.png)
+
+### User Management
+![User Management](screenshots/3.png)
+
+### Product List
+![Product List](screenshots/4.png)
+
+### Product Add
+![Product Add](screenshots/5.png)
+
+### Profile Edit
+![Profile Edit](screenshots/6.png)
 
 ## Development server
 

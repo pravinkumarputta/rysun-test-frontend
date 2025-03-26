@@ -6,14 +6,28 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CacheService } from '../../../shared/services/cache.service';
 import { AuthService } from '../../services/auth.service';
+
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    MatProgressSpinnerModule,
+  ],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.scss',
 })
@@ -22,6 +36,8 @@ export class SignupComponent implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';
   isLoading: boolean = false;
+  hidePassword: boolean = true;
+  hideConfirmPassword: boolean = true;
 
   constructor(
     private fb: FormBuilder,
@@ -99,7 +115,7 @@ export class SignupComponent implements OnInit {
         },
         error: (error) => {
           this.isLoading = false;
-          this.toastr.error('Registration failed. Please try again.', 'Error');
+          this.toastr.error(error.message, 'Error');
         },
       });
     }
@@ -135,5 +151,9 @@ export class SignupComponent implements OnInit {
       return 'Passwords do not match';
     }
     return '';
+  }
+
+  navigateToLogin(): void {
+    this.router.navigate(['/auth/login']);
   }
 }
