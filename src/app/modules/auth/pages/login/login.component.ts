@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject, takeUntil } from 'rxjs';
 import { CacheService } from '../../../shared/services/cache.service';
 import { AuthService } from '../../services/auth.service';
@@ -38,7 +39,8 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    private cacheService: CacheService
+    private cacheService: CacheService,
+    private toastr: ToastrService
   ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -56,6 +58,7 @@ export class LoginComponent implements OnInit {
         .pipe(takeUntil(this.$destroy))
         .subscribe({
           next: (userProfile) => {
+            this.toastr.success('Login successful!', 'Success');
             this.cacheService.updateCache('profile', userProfile);
             if (userProfile.role === 'admin') {
               this.router.navigate(['/user']);
@@ -65,6 +68,7 @@ export class LoginComponent implements OnInit {
           },
           error: (error) => {
             console.error('Login failed:', error);
+            this.toastr.error(error.message, 'Error');
           },
         });
     }
